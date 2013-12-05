@@ -1,0 +1,51 @@
+Asset Production Resolved Early Records:=
+IF(HASONEVALUE('Reporting Calendar'[Reporting Calendar]),
+SWITCH(VALUES('Reporting Calendar'[Reporting Calendar]),
+
+"SREV Qtr",
+IF(HASONEVALUE('Reporting Period'[Reporting Period]),
+CALCULATE(SUM('Asset'[Records]),
+FILTER('Asset',(Asset[SSI Opportunity Analysis Quarter]=VALUES('Reporting Period'[Reporting Period]) || 
+Asset[SSI Opportunity Analysis Quarter]=(VALUES('Reporting Period'[Reporting Period]) - 1) || 
+Asset[SSI Opportunity Analysis Quarter]=(VALUES('Reporting Period'[Reporting Period]) - 2)) && 
+Asset[Batch Type]="Renewal" &&  
+Asset[SSI Transaction Analysis Quarter] < VALUES('Reporting Period'[Reporting Period]) && 
+((Asset[Asset Sales Stage]="House Account") || 
+(Asset[Asset Sales Stage]="No Service") || 
+(Asset[Asset Sales Stage]="Closed Sale"))))),
+
+
+"Client Qtr",
+IF(HASONEVALUE('Reporting Period'[Reporting Period]),
+CALCULATE(SUM('Asset'[Records]),
+FILTER('Asset',(Asset[Client Opportunity Analysis Quarter]=VALUES('Reporting Period'[Reporting Period]) || 
+Asset[Client Opportunity Analysis Quarter]=(VALUES('Reporting Period'[Reporting Period]) - 1) || 
+Asset[Client Opportunity Analysis Quarter]=(VALUES('Reporting Period'[Reporting Period]) - 2)) && 
+Asset[Batch Type]="Renewal" &&  
+Asset[Client Transaction Analysis Quarter] < VALUES('Reporting Period'[Reporting Period]) && 
+((Asset[Asset Sales Stage]="House Account") || 
+(Asset[Asset Sales Stage]="No Service") || 
+(Asset[Asset Sales Stage]="Closed Sale"))))),
+
+"Month",
+IF(HASONEVALUE('Reporting Period'[Reporting Period]),
+CALCULATE(SUM('Asset'[Records]),
+FILTER('Asset',(Asset[SSI Opportunity Analysis Month]=VALUES('Reporting Period'[Reporting Period]) || 
+Asset[SSI Opportunity Analysis Month]=(VALUES('Reporting Period'[Reporting Period]) - 1) || 
+Asset[SSI Opportunity Analysis Month]=(VALUES('Reporting Period'[Reporting Period]) - 2)) && 
+Asset[Batch Type]="Renewal" &&  
+Asset[SSI Transaction Analysis Month] < VALUES('Reporting Period'[Reporting Period]) && 
+((Asset[Asset Sales Stage]="House Account") || 
+(Asset[Asset Sales Stage]="No Service") || 
+(Asset[Asset Sales Stage]="Closed Sale")))))),
+
+IF(HASONEVALUE('Reporting Period'[Reporting Period]),
+CALCULATE(SUM('Asset'[Records]),
+FILTER('Asset',(Asset[SSI Opportunity Analysis Quarter]=VALUES('Reporting Period'[Reporting Period]) || 
+Asset[SSI Opportunity Analysis Quarter]=(VALUES('Reporting Period'[Reporting Period]) - 1) || 
+Asset[SSI Opportunity Analysis Quarter]=(VALUES('Reporting Period'[Reporting Period]) - 2)) && 
+Asset[Batch Type]="Renewal" &&  
+Asset[SSI Transaction Analysis Quarter] < VALUES('Reporting Period'[Reporting Period]) && 
+((Asset[Asset Sales Stage]="House Account") || 
+(Asset[Asset Sales Stage]="No Service") || 
+(Asset[Asset Sales Stage]="Closed Sale"))))))
